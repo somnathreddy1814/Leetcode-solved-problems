@@ -5,13 +5,8 @@ class Solution:
     
         ans=[]
         for i in range(2,len(nums),3):
-            temp=[]
             if nums[i]-nums[i-2]<=k:
-                temp.append(nums[i-2])
-                temp.append(nums[i-1])
-                temp.append(nums[i])
-                ans.append(temp)
+                ans.append([nums[i-2],nums[i-1],nums[i]])
             else:
                 return []
         return ans
-            
