@@ -8,7 +8,6 @@ class Solution:
                 if bank[i][j]=='1':
                     current_count+=1
             final_count+=previous_count*current_count
-            print(final_count)
             if current_count==0:
                 continue
             else:
