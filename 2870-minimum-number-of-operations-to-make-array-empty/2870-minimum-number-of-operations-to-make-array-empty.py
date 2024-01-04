@@ -1,13 +1,4 @@
 class Solution:
     def minOperations(self, nums: List[int]) -> int:
-        dct=Counter(nums)
-        count=list(dct.values())
-        ans=0
-        for num in count:
-            if num==1:
-                return -1
-            ans+=num//3
-            if num%3:
-                ans+=1
-        
-        return ans
+        count = Counter(nums).values()
+        return -1 if 1 in count else sum((c + 2) // 3 for c in count)
