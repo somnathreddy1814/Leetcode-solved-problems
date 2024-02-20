@@ -11,14 +11,13 @@ class Solution:
             nonlocal res
             if node is None:
                 return 0,0
-            left_sum,left_count=fun(node.left)
-            right_sum,right_count=fun(node.right)
-            curr_sum=node.val+left_sum+right_sum
-            curr_count=1+left_count+right_count
-            if curr_sum//curr_count==node.val:
+            ls,lc=fun(node.left)
+            rs,rc=fun(node.right)
+            current_sum=node.val+ls+rs
+            current_count=1+rc+lc
+            if current_sum//current_count==node.val:
                 res+=1
-            
-            return curr_sum,curr_count
+            return current_sum,current_count
         fun(root)
         return res
         
