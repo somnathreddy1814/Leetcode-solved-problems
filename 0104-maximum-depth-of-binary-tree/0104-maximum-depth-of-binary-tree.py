@@ -6,21 +6,8 @@
 #         self.right = right
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        #level order traversal then find length of levels
-        if root is None:
-            return 0
-        res=[]
-        q=deque()
-        q.append(root)
-        while(q):
-            levels=[]
-            for i in range(len(q)):
-                temp=q.popleft()
-                if temp.left:
-                    q.append(temp.left)
-                if temp.right:
-                    q.append(temp.right)
-                levels.append(temp)
-            res.append(levels)
-        return len(res)
-        
+        def dfs(root,depth):
+            if not root:
+                return depth
+            return max(dfs(root.left,depth+1),dfs(root.right,depth+1))
+        return dfs(root,0)        
