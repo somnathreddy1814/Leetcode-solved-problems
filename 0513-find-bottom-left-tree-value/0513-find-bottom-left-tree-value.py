@@ -9,17 +9,24 @@ class Solution:
         ans=[]
         q=deque()
         q.append(root)
-        while(len(q)):
-            res=q[0].val
-                        
-
-            for i in range(len(q)):
-                temp=q.popleft()
-                if temp.left:
-                    q.append(temp.left)
-                if temp.right:
-                    q.append(temp.right)
-
+        while(q):
+            temp=q.popleft()
+            res=temp.val
+            if temp.right:
+                q.append(temp.right)
+            if temp.left:
+                q.append(temp.left)
         return res
-    
+            
+# class Solution:
+#     def findBottomLeftValue(self, root: 'TreeNode') -> 'int':
+#         queue = [root]
+#         while queue:
+#             node = queue.pop(0)
+#             res = node.val
+#             if node.right:
+#                 queue.append(node.right)
+#             if node.left:
+#                 queue.append(node.left)
+#         return res
         
