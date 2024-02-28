@@ -10,15 +10,16 @@ class Solution:
         q=deque()
         q.append(root)
         while(len(q)):
-            levels=[]
+            res=q[0].val
+                        
+
             for i in range(len(q)):
                 temp=q.popleft()
-                if temp.left is not None:
+                if temp.left:
                     q.append(temp.left)
-                if temp.right is not None:
+                if temp.right:
                     q.append(temp.right)
-                levels.append(temp.val)
-            ans.append(levels)
-        # print(ans[-1][0])
-        return ans[-1][0]
+
+        return res
+    
         
