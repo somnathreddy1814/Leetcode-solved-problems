@@ -11,7 +11,7 @@ class Solution:
         def preorder(node):
             nonlocal res
             if node is None:
-                return []
+                return 0
             res+=1
             preorder(node.left)
             preorder(node.right)
