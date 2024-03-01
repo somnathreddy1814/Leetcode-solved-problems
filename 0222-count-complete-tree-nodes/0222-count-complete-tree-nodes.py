@@ -6,14 +6,15 @@
 #         self.right = right
 class Solution:
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        res=[]
+        res=0
         
         def preorder(node):
+            nonlocal res
             if node is None:
                 return []
-            res.append(node.val)
+            res+=1
             preorder(node.left)
             preorder(node.right)
             return res
         preorder(root)
-        return len(res)
+        return res
