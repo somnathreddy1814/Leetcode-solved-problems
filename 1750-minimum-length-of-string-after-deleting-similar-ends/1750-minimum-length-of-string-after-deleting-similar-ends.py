@@ -4,10 +4,10 @@ class Solution:
         j=len(s)-1
         while i<j and s[i]==s[j]:
             ch=s[i]
-            while i<=j and s[i]==ch:
+            while i<=j and ch==s[i]:
                 i+=1
-            while i<=j and s[j]==ch:
+            while i<=j and ch==s[j]:
                 j-=1
         return j-i+1
-        
+    
        
