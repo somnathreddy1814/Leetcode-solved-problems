@@ -1,24 +1,23 @@
 class Solution:
-    def findCircleNum(self, A):
-        adj=[[] for i in range(len(A))]
-        for i in range(len(A)):
-            for j in range(len(A)):
-                if(A[i][j]==1 and i!=j):
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        adj=[[] for _ in range(len(isConnected))]
+        for i in range(len(isConnected)):
+            for j in range(len(isConnected)):
+                if (isConnected[i][j]==1 and i!=j):
                     adj[i].append(j)
                     adj[j].append(i)
-                    
-        
-        def dfs(node,vis):
+        def dfs(node,adj,vis):
             vis[node]=1
             for i in adj[node]:
                 if vis[i]==0:
-                    dfs(i,vis)
-        
+                    dfs(i,adj,vis)
+                    
         v=len(adj)
         vis=[0]*(v+1)
         cnt=0
         for i in range(v):
             if vis[i]==0:
                 cnt+=1
-                dfs(i,vis)
+                dfs(i,adj,vis)
         return cnt
+        
