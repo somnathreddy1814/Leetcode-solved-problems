@@ -1,16 +1,24 @@
 class Solution:
     def findCircleNum(self, A):
-        N = len(A)
-        seen = set()
-        def dfs(node):
-            for nei, adj in enumerate(A[node]):
-                if adj and nei not in seen:
-                    seen.add(nei)
-                    dfs(nei)
-    
-        ans = 0
-        for i in range(N):
-            if i not in seen:
-                dfs(i)
-                ans += 1
-        return ans
+        adj=[[] for i in range(len(A))]
+        for i in range(len(A)):
+            for j in range(len(A)):
+                if(A[i][j]==1 and i!=j):
+                    adj[i].append(j)
+                    adj[j].append(i)
+                    
+        
+        def dfs(node,vis):
+            vis[node]=1
+            for i in adj[node]:
+                if vis[i]==0:
+                    dfs(i,vis)
+        
+        v=len(adj)
+        vis=[0]*(v+1)
+        cnt=0
+        for i in range(v):
+            if vis[i]==0:
+                cnt+=1
+                dfs(i,vis)
+        return cnt
