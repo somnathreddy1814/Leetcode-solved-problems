@@ -1,33 +1,22 @@
 from collections import deque
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
-        def bfs(row,col,vis,grid):
-            q=deque()
-            n=len(grid)
-            m=len(grid[0])
-            vis[row][col]=1
-            q.append((row,col))
-            while(q):
-                row,col=q.popleft()
-                delrow=[-1,0,1,0]
-                delcol=[0,-1,0,+1]
-                for i in range(4):
-                    nrow=delrow[i]+row
-                    ncol=delcol[i]+col
-                    if 0<=nrow<n and 0<=ncol<m and vis[nrow][ncol]==0 and grid[nrow][ncol]=='1':
-                        vis[nrow][ncol]=1
-                        q.append((nrow,ncol))
-                        
+    def numIslands(self, grid):
+        if not grid:
+            return 0
         
-        
-        n=len(grid)
-        m=len(grid[0])
-        vis=[[0]*m for _ in range(n)]
-        cnt=0
-        for i in range(n):
-            for j in range(m):
-                if vis[i][j]==0 and grid[i][j]=='1':
-                    cnt+=1
-                    bfs(i,j,vis,grid)
-        return cnt
-        
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    self.dfs(grid, i, j)
+                    count += 1
+        return count
+
+    def dfs(self, grid, i, j):
+        if i<0 or j<0 or i>=len(grid) or j>=len(grid[0]) or grid[i][j] != '1':
+            return
+        grid[i][j] = '#'
+        self.dfs(grid, i+1, j)
+        self.dfs(grid, i-1, j)
+        self.dfs(grid, i, j+1)
+        self.dfs(grid, i, j-1)
