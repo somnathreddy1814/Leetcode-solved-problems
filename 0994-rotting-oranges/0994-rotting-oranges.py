@@ -1,45 +1,53 @@
+from collections import deque
 class Solution:
-    def bfs(self,grid, q, count_fresh):
-        n, m = len(grid), len(grid[0])
-        countMin = 0
-        cnt = 0
-        delrow = [1,-1,0,0]
-        delcol = [0,0,-1,1]
 
-        while q:
-            size = len(q)
-            cnt += size
-            for _ in range(size):
-                row,col = q.popleft()
-                for i in range(4):
-                    nrow = row + delrow[i]
-                    ncol = col + delcol[i]
+    #Function to find minimum time required to rot all oranges. 
+	def orangesRotting(self, grid):
+		#Code here
+		def bfs(grid,q,cnt_fresh):
+		    n=len(grid)
+		    m=len(grid[0])
+		    cnt=0  #to check if all oranges marked fresh are touched or not
+		    min=0  #count of minutes to return 
+		    delrow=[1,-1,0,0]#as we can move in 4 directons these are possible changes
+		    delcol=[0,0,1,-1]
+		    while(q):
+		        for _ in range(len(q)):
+		            row,col=q[0][0]
+		            t=q[0][1]
+		            for i in range(4):
+		                nrow=row+delrow[i]
+		                ncol=col+delcol[i]
+		                if 0<=nrow<n and 0<=ncol<m and grid[nrow][ncol]==1:
+		                    cnt+=1
+		                    grid[nrow][ncol]=2 #modify neigbours
+		                  
+		                    q.append(((nrow,ncol),t+1)) #append locations to queue to explore those as well
+		        q.popleft()
+		                
+		        if q:
+		            min+=1 #update levels
+		    if cnt!=cnt_fresh:
+		        return -1
+		    return t
+		    
+		n=len(grid)
+		m=len(grid[0])
+		q=deque()
+		cnt_fresh=0
+		t=0
+		if n==0 or grid is None:
+		    return 0
+		for i in range(n):
+		    for j in range(m):
+		        if grid[i][j]==2:
+		            q.append(((i,j),t))
+		        if grid[i][j]==1:
+		            cnt_fresh+=1
 
-                    if nrow < 0 or ncol < 0 or nrow >= n or ncol >= m or grid[nrow][ncol] == 0 or grid[nrow][ncol] == 2:
-                        continue
+		if cnt_fresh==0:
+		    return 0
+		return bfs(grid,q,cnt_fresh)
+		 
 
-                    grid[nrow][ncol] = 2
-                    q.append((nrow, ncol))
-            if q:
-                countMin += 1
 
-        return countMin if count_fresh == cnt else -1
-    def orangesRotting(self, grid: List[List[int]]) -> int:
-
-        if grid is None or len(grid) == 0:
-            return 0
-        n, m = len(grid), len(grid[0])
-        q = deque()
-        count_fresh = 0
-
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j] == 2:
-                    q.append((i, j))
-                if grid[i][j] != 0:
-                    count_fresh += 1
-
-        if count_fresh == 0:
-            return 0
-
-        return self.bfs(grid, q, count_fresh)
