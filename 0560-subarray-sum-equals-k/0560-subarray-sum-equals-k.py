@@ -10,6 +10,8 @@ class Solution:
             presum+=arr[i]
             remove=presum-k
             cnt+=mpp[remove]
+            
+            
             mpp[presum]+=1
         return cnt
         
