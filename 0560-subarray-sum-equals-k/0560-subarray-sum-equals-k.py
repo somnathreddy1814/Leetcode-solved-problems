@@ -9,10 +9,12 @@ class Solution:
         for i in range(n):
             presum+=arr[i]
             remove=presum-k
+           
             cnt+=mpp[remove]
-            
-            
             mpp[presum]+=1
+            
+            
+            
         return cnt
         
         
