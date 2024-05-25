@@ -1,11 +1,7 @@
-class Solution(object):
-    def findSpecialInteger(self, arr):
-        cnts=defaultdict(int)
-        for num in arr:
-            cnts[num]+=1
-        target=len(arr)//4
-        for key,value in cnts.items():
-            if value>target:
-                return key
-        return -1
+class Solution:
+    def findSpecialInteger(self, arr: List[int]) -> int:
+        dct=Counter(arr)
         
+        for key,val in dct.items():
+            if val>len(arr)//4:
+                return key
